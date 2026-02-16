@@ -1,3 +1,4 @@
+<?xml version="1.0" ?>
 <launch>
     <arg name="node_name"             default="velocity_smoother"/>
     <arg name="nodelet_manager_name"  default="nodelet_manager"/>
