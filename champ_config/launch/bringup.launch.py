@@ -22,15 +22,19 @@ from launch_ros.substitutions import FindPackageShare
 
 def generate_launch_description():
     this_package = FindPackageShare('champ_config')
+
     joints_config = PathJoinSubstitution(
         [this_package, 'config', 'joints', 'joints.yaml']
     )
+
     gait_config = PathJoinSubstitution(
         [this_package, 'config', 'gait', 'gait.yaml']
     )
+
     links_config = PathJoinSubstitution(
         [this_package, 'config', 'links', 'links.yaml']
     )
+    
     bringup_launch_path = PathJoinSubstitution(
         [FindPackageShare('champ_bringup'), 'launch', 'bringup.launch.py']
     )

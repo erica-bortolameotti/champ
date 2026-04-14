@@ -25,16 +25,17 @@ def generate_launch_description():
     config_pkg_share = launch_ros.substitutions.FindPackageShare(
         package="champ_config"
     ).find("champ_config")
+    
     descr_pkg_share = launch_ros.substitutions.FindPackageShare(
-        package="champ_description"
-    ).find("champ_description")
+        package="aliengo_description"
+    ).find("aliengo_description")
 
     joints_config = os.path.join(config_pkg_share, "config/joints/joints.yaml")
     gait_config = os.path.join(config_pkg_share, "config/gait/gait.yaml")
     links_config = os.path.join(config_pkg_share, "config/links/links.yaml")
 
-    default_rviz_path = os.path.join(descr_pkg_share, "rviz/urdf_viewer.rviz")
-    default_model_path = os.path.join(descr_pkg_share, "urdf/champ.urdf.xacro")
+    default_rviz_path = os.path.join(descr_pkg_share, "rviz/visual.rviz")
+    default_model_path = os.path.join(descr_pkg_share, "xacro/robot.xacro")
 
     declare_use_sim_time = DeclareLaunchArgument(
         "use_sim_time",
@@ -143,9 +144,9 @@ def generate_launch_description():
     description_ld = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(
-                get_package_share_directory("champ_description"),
+                get_package_share_directory("aliengo_description"),
                 "launch",
-                "description.launch.py",
+                "rviz.launch.py",
             )
         ),
         launch_arguments={
