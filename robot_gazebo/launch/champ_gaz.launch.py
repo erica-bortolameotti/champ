@@ -20,10 +20,8 @@ def generate_launch_description():
     
     pkg_share = get_package_share_directory('aliengo_description')
     
-    # 1. Trova dove è installato il pacchetto
     path_for_meshes = os.path.join(get_package_prefix('aliengo_description'), 'share')
 
-    # 2. Definisci l'azione per impostare la variabile d'ambiente
     set_gazebo_model_path = SetEnvironmentVariable(
         name='GAZEBO_MODEL_PATH',
         value=[
@@ -93,20 +91,6 @@ def generate_launch_description():
     #disabilita la ricerca in modelli di gazebo
     disable_fuel = SetEnvironmentVariable('GAZEBO_MODEL_DATABASE_URI', '')
   
-    #se ci sono variabili con la virgola le porta in punto
-    set_env_lc = SetEnvironmentVariable('LC_NUMERIC', 'en_US.UTF-8')
-
-    #ROBOT STATE PUBLISHER
-    #node = Node(
-    #    package="robot_state_publisher",
-    #    executable="robot_state_publisher",
-    #    output="screen",
-    #    parameters=[{
-    #        "robot_description": Command(["xacro ", LaunchConfiguration("description_path"), " DEBUG:=true"]),
-    #        "use_sim_time":robot_state_publisher True,
-    #    }]
-    #)
-
     robot_description = {"robot_description": Command(["xacro ", LaunchConfiguration("description_path")])}
 
     gazebo_world = LaunchConfiguration('world')
@@ -125,29 +109,6 @@ def generate_launch_description():
    
     launch_dir = os.path.join(gz_pkg_share, "launch")
     
-    
-    # GAZEBO SERVER
-    #start_gazebo_server_cmd = ExecuteProcess(
-    #    cmd=[
-    #        "gzserver",
-    #        "-u", # <--- AGGIUNGI QUESTO PER IL PAUSE
-    #        "-s", 
-    #        "libgazebo_ros_init.so",
-    #        "-s", 
-    #        "libgazebo_ros_factory.so",
-    #        gazebo_world,
-    #        "--verbose", # Ci serve per vedere l'errore reale
-    #        "--ros-args"
-    #    ],
-    #    output="screen",
-    #)
-
-    # GAZEBO CLIENT
-    #start_gazebo_client_cmd = ExecuteProcess(
-    #    condition=IfCondition(PythonExpression([" not ", headless])),
-    #    cmd=["gzclient"],
-    #    output="screen",
-    #)
 
     start_gazebo_server_cmd = ExecuteProcess(
         cmd=[
